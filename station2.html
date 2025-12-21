@@ -29,9 +29,10 @@ function check(ok){
 <div class="option" onclick="check(false)">ұялы телефон</div>
 
 <p><b>Стартап</b></p>
-<div class="option" onclick="check(true)">кәсіп бастамасы</div>
-<div class="option" onclick="check(false)">әлеуметтік желі</div>
-
+<div class="answers">
+ <div class="option" onclick="check(true)">кәсіп бастамасы</div>
+  class="option" onclick="check(false)">әлеуметтік желі</div>
+</div>
 <p><b>Блогер</b></p>
 <div class="option" onclick="check(true)">желі қолданушы</div>
 <div class="option" onclick="check(false)">ұялы телефон</div>
@@ -40,5 +41,14 @@ function check(ok){
 <div class="option" onclick="check(true)">ұялы телефон</div>
 <div class="option" onclick="check(false)">кәсіп бастамасы</div>
 
+  <script>
+document.querySelectorAll('.answers').forEach(block => {
+  const items = Array.from(block.children);
+  items.sort(() => Math.random() - 0.5);
+  items.forEach(i => block.appendChild(i));
+});
+</script>
+
 </body>
 </html>
+
