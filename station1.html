@@ -36,9 +36,21 @@ function check(ok){
 
 <div class="rune">ᚴAᛉAᚴ</div>
 
-<div class="option" onclick="check(true)">ҚАЗАҚ</div>
-<div class="option" onclick="check(false)">ҚАЗАҚСТАН</div>
-<div class="option" onclick="check(false)">ТҮРКІ</div>
+<div class="answers">
+  <div class="option" onclick="check(true)">ҚАЗАҚ</div>
+  <div class="option" onclick="check(false)">ҚАЗАҚСТАН</div>
+  <div class="option" onclick="check(false)">ТҮРКІ</div>
+</div>
+
+
+  <script>
+document.querySelectorAll('.answers').forEach(block => {
+  const items = Array.from(block.children);
+  items.sort(() => Math.random() - 0.5);
+  items.forEach(i => block.appendChild(i));
+});
+</script>
 
 </body>
 </html>
+
