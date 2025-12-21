@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Station 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f4ecd8;padding:15px;}
+.option{
+  padding:10px;
+  margin:6px 0;
+  border:2px solid #8b6b3e;
+  border-radius:8px;
+  background:#fff;
+}
+</style>
+<script>
+function check(ok){
+  alert(ok?"✅ Дұрыс!":"❌ Қате");
+}
+</script>
+</head>
+<body>
+
+<h2>💻 Слова XXI века</h2>
+
+<p><b>Инстаграм</b></p>
+<div class="option" onclick="check(true)">әлеуметтік желі</div>
+<div class="option" onclick="check(false)">ұялы телефон</div>
+
+<p><b>Стартап</b></p>
+<div class="option" onclick="check(true)">кәсіп бастамасы</div>
+<div class="option" onclick="check(false)">әлеуметтік желі</div>
+
+<p><b>Блогер</b></p>
+<div class="option" onclick="check(true)">желі қолданушы</div>
+<div class="option" onclick="check(false)">ұялы телефон</div>
+
+<p><b>Смартфон</b></p>
+<div class="option" onclick="check(true)">ұялы телефон</div>
+<div class="option" onclick="check(false)">кәсіп бастамасы</div>
+
+</body>
+</html>
