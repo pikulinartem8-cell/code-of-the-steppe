@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Station 1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f4ecd8;padding:15px;}
+.rune{
+  font-size:36px;
+  letter-spacing:8px;
+  text-align:center;
+  background:#e6d6b3;
+  padding:20px;
+  border-radius:10px;
+  border:3px solid #8b6b3e;
+}
+.option{
+  margin:10px 0;
+  padding:12px;
+  border:2px solid #8b6b3e;
+  border-radius:8px;
+  background:#fff;
+}
+</style>
+<script>
+function check(ok){
+  alert(ok?"✅ Дұрыс!":"❌ Қате, тағы ойлан!");
+}
+</script>
+</head>
+<body>
+
+<h2>🗿 Тайна рунического камня</h2>
+<p>Расшифруй надпись:</p>
+
+<div class="rune">ᚴAᛉAᚴ</div>
+
+<div class="option" onclick="check(true)">ҚАЗАҚ</div>
+<div class="option" onclick="check(false)">ҚАЗАҚСТАН</div>
+<div class="option" onclick="check(false)">ТҮРКІ</div>
+
+</body>
+</html>

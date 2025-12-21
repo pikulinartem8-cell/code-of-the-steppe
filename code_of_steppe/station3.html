@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Station 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;background:#f4ecd8;padding:15px;}
+.option{
+  padding:10px;
+  margin:6px 0;
+  border:2px solid #8b6b3e;
+  border-radius:8px;
+  background:#fff;
+}
+audio{width:100%;}
+</style>
+<script>
+function check(ok){
+  alert(ok?"✅ Дұрыс!":"❌ Қате");
+}
+</script>
+</head>
+<body>
+
+<h2>🎧 Узнай голос степи</h2>
+
+<p><b>Аудио 1</b></p>
+<audio controls src="audio/kazakhstan.mp3"></audio>
+<div class="option" onclick="check(true)">Шәмші Қалдаяқов</div>
+<div class="option" onclick="check(false)">Абай Құнанбайұлы</div>
+
+<p><b>Аудио 2</b></p>
+<audio controls src="audio/karagym-ai.mp3"></audio>
+<div class="option" onclick="check(true)">народная песня</div>
+<div class="option" onclick="check(false)">современный хит</div>
+
+<p><b>Аудио 3</b></p>
+<audio controls src="audio/koshpendiler.mp3"></audio>
+<div class="option" onclick="check(true)">Ильяс Есенберлин</div>
+<div class="option" onclick="check(false)">Мухтар Ауэзов</div>
+
+</body>
+</html>
