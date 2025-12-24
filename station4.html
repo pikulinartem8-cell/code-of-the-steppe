@@ -18,85 +18,71 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 
 <body>
 
-<h2>🔐 Станция 4. Код будущего</h2>
+<h2>🔐 Станция 4. Код степи</h2>
 
-<section class="quiz" data-qid="s4q1">
-<p><b>ᛏᛖᚴ означает:</b></p>
+<section class="quiz">
+<p><b>Какой символ означает «ТІЛ»?</b></p>
 <div class="answers">
-  <div class="option" data-correct="true">ТЕХНОЛОГИЯ</div>
-  <div class="option" data-correct="false">ТАРИХ</div>
-  <div class="option" data-correct="false">МӘДЕНИЕТ</div>
+  <div class="option" data-correct="true">ᛏIL</div>
+  <div class="option" data-correct="false">ᛒᚨᚱYᛊ</div>
+  <div class="option" data-correct="false">ᛗᚨᛞEᚾIET</div>
 </div>
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz" data-qid="s4q2">
-<p><b>ᛃᛖᛚ означает:</b></p>
+<section class="quiz">
+<p><b>Какой символ означает «ТАРИХ»?</b></p>
 <div class="answers">
-  <div class="option" data-correct="true">ЖЕЛІ</div>
-  <div class="option" data-correct="false">ТІЛ</div>
-  <div class="option" data-correct="false">ЖЕР</div>
+  <div class="option" data-correct="true">ᛏᚨRIH</div>
+  <div class="option" data-correct="false">ᛗᚨᛞEᚾIET</div>
+  <div class="option" data-correct="false">ᛒᚨᚱYᛊ</div>
 </div>
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz" data-qid="s4q3">
-<p><b>ᛋᚨᚾ означает:</b></p>
+<section class="quiz">
+<p><b>Какой символ означает «МӘДЕНИЕТ»?</b></p>
 <div class="answers">
-  <div class="option" data-correct="true">САН</div>
-  <div class="option" data-correct="false">КҮЙ</div>
-  <div class="option" data-correct="false">ЖЫР</div>
+  <div class="option" data-correct="true">ᛗᚨᛞEᚾIET</div>
+  <div class="option" data-correct="false">ᛏIL</div>
+  <div class="option" data-correct="false">ᛏᚨRIH</div>
 </div>
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
 <script>
-let score = Number(localStorage.getItem("score") || 0);
-let solved = JSON.parse(localStorage.getItem("solved") || "{}");
-
 document.querySelectorAll('.quiz').forEach(quiz=>{
-  let answered=false;
-  const qid=quiz.dataset.qid;
+let answered=false;
 
-  function shuffle(){
-    const a=quiz.querySelector('.answers');
-    [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
-  }
+function shuffle(){
+  const a=quiz.querySelector('.answers');
+  [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
+}
 
-  quiz.querySelectorAll('.option').forEach(opt=>{
-    opt.onclick=()=>{
-      if(answered)return;
-      answered=true;
-      const correct=opt.dataset.correct==="true";
-      opt.classList.add(correct?"correct":"wrong");
-
-      quiz.querySelectorAll('.option').forEach(o=>{
-        if(o.dataset.correct==="true")o.classList.add("correct");
-        o.classList.add("disabled");
-      });
-
-      if(correct && !solved[qid]){
-        solved[qid]=true;
-        score++;
-        localStorage.setItem("score",score);
-        localStorage.setItem("solved",JSON.stringify(solved));
-      }
-    };
-  });
-
-  quiz.querySelector('.retry').onclick=()=>{
-    answered=false;
-    quiz.querySelectorAll('.option').forEach(o=>o.className="option");
-    shuffle();
+quiz.querySelectorAll('.option').forEach(opt=>{
+  opt.onclick=()=>{
+    if(answered)return;
+    answered=true;
+    opt.classList.add(opt.dataset.correct==="true"?"correct":"wrong");
+    quiz.querySelectorAll('.option').forEach(o=>{
+      if(o.dataset.correct==="true")o.classList.add("correct");
+      o.classList.add("disabled");
+    });
   };
+});
 
+quiz.querySelector('.retry').onclick=()=>{
+  answered=false;
+  quiz.querySelectorAll('.option').forEach(o=>o.className="option");
   shuffle();
+};
+
+shuffle();
 });
 </script>
 
 </body>
 </html>
-
 
 
 
