@@ -51,6 +51,30 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 </section>
 
 <script>
+const STATION_ID = 1; // ← МЕНЯЙ: 1, 2, 3 или 4
+const TOTAL_QUESTIONS = 3;
+
+let score = Number(localStorage.getItem("score") || 0);
+let progress = JSON.parse(localStorage.getItem("progress") || "{}");
+
+function updateProgressUI() {
+  document.getElementById("progress").innerText =
+    `Прогресс станции: ${progress[`s${STATION_ID}`] || 0} / ${TOTAL_QUESTIONS}`;
+}
+
+function markCorrect() {
+  progress[`s${STATION_ID}`] = (progress[`s${STATION_ID}`] || 0) + 1;
+  localStorage.setItem("progress", JSON.stringify(progress));
+
+  score++;
+  localStorage.setItem("score", score);
+
+  updateProgressUI();
+}
+
+function stationCompleted() {
+  return (progress[`s${STATION_ID}`] || 0) >= TOTAL_QUESTIONS;
+}
 document.querySelectorAll('.quiz').forEach(quiz=>{
 let answered=false;
 
@@ -83,5 +107,6 @@ shuffle();
 
 </body>
 </html>
+
 
 
