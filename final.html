@@ -18,18 +18,42 @@ body{
   padding:30px;
   border-radius:20px;
   border:3px solid #d8c48a;
+  max-width:420px;
+  margin:auto;
 }
-h1{font-size:28px;}
-.score{font-size:22px;margin-top:20px;}
-.reset{
-  margin-top:30px;
-  padding:15px;
+input{
+  padding:10px;
+  width:90%;
+  border-radius:8px;
+  border:none;
+  margin-top:10px;
+}
+button{
+  margin-top:15px;
+  padding:12px;
+  width:100%;
   background:#d8c48a;
-  color:black;
   border:none;
   border-radius:12px;
   font-size:16px;
   cursor:pointer;
+}
+table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+}
+th,td{
+  border:1px solid #d8c48a;
+  padding:8px;
+}
+th{
+  background:#3b2f1b;
+}
+.reset{
+  margin-top:25px;
+  background:#8b6b3e;
+  color:white;
 }
 </style>
 </head>
@@ -39,19 +63,69 @@ h1{font-size:28px;}
 <div class="box">
   <h1>🏁 Код степи восстановлен</h1>
   <p>Вы прошли все испытания Великой степи.</p>
-  <div class="score" id="score"></div>
+
+  <p id="score"></p>
+
+  <input id="name" placeholder="Введите имя ученика">
+  <button onclick="saveResult()">💾 Сохранить результат</button>
+
+  <h3>⭐ Таблица результатов</h3>
+  <table id="table">
+    <tr>
+      <th>№</th>
+      <th>Имя</th>
+      <th>Баллы</th>
+    </tr>
+  </table>
 
   <button class="reset" onclick="resetAll()">🔁 Начать заново</button>
 </div>
 
 <script>
-const score = localStorage.getItem("score") || 0;
+const score = Number(localStorage.getItem("score") || 0);
 document.getElementById("score").innerText = `⭐ Ваш результат: ${score} баллов`;
+
+let results = JSON.parse(localStorage.getItem("results") || "[]");
+
+function saveResult(){
+  const name = document.getElementById("name").value.trim();
+  if(!name) return alert("Введите имя");
+
+  results.push({name, score});
+  results.sort((a,b)=>b.score-a.score);
+  localStorage.setItem("results", JSON.stringify(results));
+
+  document.getElementById("name").disabled = true;
+  renderTable();
+}
+
+function renderTable(){
+  const table = document.getElementById("table");
+  table.innerHTML = `
+    <tr>
+      <th>№</th>
+      <th>Имя</th>
+      <th>Баллы</th>
+    </tr>
+  `;
+
+  results.forEach((r,i)=>{
+    table.innerHTML += `
+      <tr>
+        <td>${i+1}</td>
+        <td>${r.name}</td>
+        <td>${r.score}</td>
+      </tr>
+    `;
+  });
+}
 
 function resetAll(){
   localStorage.clear();
   location.href = "index.html";
 }
+
+renderTable();
 </script>
 
 </body>
