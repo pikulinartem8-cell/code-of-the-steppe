@@ -20,27 +20,27 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 
 <h2>🗿 Станция 1. Руны степи</h2>
 
-<section class="quiz">
+<section class="quiz" data-qid="s1q1">
 <p><b>ᚴAᛉAᚴ означает:</b></p>
 <div class="answers">
   <div class="option" data-correct="true">ҚАЗАҚ</div>
-  <div class="option" data-correct="false">ТҮРКІ</div>
   <div class="option" data-correct="false">ҚАЗАҚСТАН</div>
+  <div class="option" data-correct="false">ТҮРКІ</div>
 </div>
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz">
+<section class="quiz" data-qid="s1q2">
 <p><b>ᛏIL означает:</b></p>
 <div class="answers">
   <div class="option" data-correct="true">ТІЛ</div>
-  <div class="option" data-correct="false">ЕЛ</div>
   <div class="option" data-correct="false">ЖЕР</div>
+  <div class="option" data-correct="false">ЕЛ</div>
 </div>
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz">
+<section class="quiz" data-qid="s1q3">
 <p><b>ᛗᚨᛞEᚾIET означает:</b></p>
 <div class="answers">
   <div class="option" data-correct="true">МӘДЕНИЕТ</div>
@@ -51,37 +51,51 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 </section>
 
 <script>
+let score = Number(localStorage.getItem("score") || 0);
+let solved = JSON.parse(localStorage.getItem("solved") || "{}");
+
 document.querySelectorAll('.quiz').forEach(quiz=>{
-let answered=false;
+  let answered=false;
+  const qid=quiz.dataset.qid;
 
-function shuffle(){
-  const a=quiz.querySelector('.answers');
-  [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
-}
+  function shuffle(){
+    const a=quiz.querySelector('.answers');
+    [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
+  }
 
-quiz.querySelectorAll('.option').forEach(opt=>{
-  opt.onclick=()=>{
-    if(answered)return;
-    answered=true;
-    opt.classList.add(opt.dataset.correct==="true"?"correct":"wrong");
-    quiz.querySelectorAll('.option').forEach(o=>{
-      if(o.dataset.correct==="true")o.classList.add("correct");
-      o.classList.add("disabled");
-    });
+  quiz.querySelectorAll('.option').forEach(opt=>{
+    opt.onclick=()=>{
+      if(answered)return;
+      answered=true;
+      const correct=opt.dataset.correct==="true";
+      opt.classList.add(correct?"correct":"wrong");
+
+      quiz.querySelectorAll('.option').forEach(o=>{
+        if(o.dataset.correct==="true")o.classList.add("correct");
+        o.classList.add("disabled");
+      });
+
+      if(correct && !solved[qid]){
+        solved[qid]=true;
+        score++;
+        localStorage.setItem("score",score);
+        localStorage.setItem("solved",JSON.stringify(solved));
+      }
+    };
+  });
+
+  quiz.querySelector('.retry').onclick=()=>{
+    answered=false;
+    quiz.querySelectorAll('.option').forEach(o=>o.className="option");
+    shuffle();
   };
-});
 
-quiz.querySelector('.retry').onclick=()=>{
-  answered=false;
-  quiz.querySelectorAll('.option').forEach(o=>o.className="option");
   shuffle();
-};
-
-shuffle();
 });
 </script>
 
 </body>
 </html>
+
 
 
