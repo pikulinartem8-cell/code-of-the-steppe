@@ -6,13 +6,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;}
-.quiz{background:#fffaf0;padding:20px;border-radius:14px;border:3px solid #8b6b3e;margin-bottom:20px;}
-.option{padding:12px;margin:8px 0;border:2px solid #8b6b3e;border-radius:8px;background:#fff;cursor:pointer;}
+body{
+  font-family: Arial;
+  background: linear-gradient(#f4ecd8,#e2cfa1);
+  padding: 15px;
+}
+section{
+  background:#fffaf0;
+  padding:20px;
+  border-radius:14px;
+  border:3px solid #8b6b3e;
+  margin-bottom:20px;
+}
+.option{
+  padding:12px;
+  margin:8px 0;
+  border:2px solid #8b6b3e;
+  border-radius:8px;
+  background:#fff;
+  cursor:pointer;
+}
 .option.correct{background:#c7e3b3;}
 .option.wrong{background:#f4bcbc;}
 .option.disabled{pointer-events:none;}
-.retry{margin-top:10px;padding:10px;width:100%;background:#d8c48a;border:none;border-radius:10px;}
+.retry{
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  background:#d8c48a;
+  border:none;
+  border-radius:10px;
+}
+audio{width:100%;}
 </style>
 </head>
 
@@ -20,81 +45,86 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 
 <h2>🎧 Станция 3. Голос степи</h2>
 
-<section class="quiz" data-qid="s3q1">
-<p><b>ᛏᛟᛁ означает:</b></p>
+<!-- ВОПРОС 1 -->
+<section class="quiz">
+<p><b></b></p>
+<audio controls src="audio/kazakhstan.mp3"></audio>
+
 <div class="answers">
-  <div class="option" data-correct="true">ТОЙ</div>
-  <div class="option" data-correct="false">ЖЫР</div>
-  <div class="option" data-correct="false">ӘН</div>
+  <div class="option" data-correct="true">Шәмші Қалдаяқов</div>
+  <div class="option" data-correct="false">Абай Құнанбайұлы</div>
+  <div class="option" data-correct="false">Құрманғазы</div>
 </div>
+
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz" data-qid="s3q2">
-<p><b>ᚴᚢᛁ означает:</b></p>
+<!-- ВОПРОС 2 -->
+<section class="quiz">
+<p><b>Кто автор произведения?</b></p>
+<audio controls src="audio/karagym-ai.mp3"></audio>
+
 <div class="answers">
-  <div class="option" data-correct="true">КҮЙ</div>
-  <div class="option" data-correct="false">ӘН</div>
-  <div class="option" data-correct="false">БИ</div>
+  <div class="option" data-correct="true">народная</div>
+  <div class="option" data-correct="false">Құрманғазы</div>
+  <div class="option" data-correct="false">Сакен Сейфуллин</div>
 </div>
+
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
-<section class="quiz" data-qid="s3q3">
-<p><b>ᛃᛁᚱ означает:</b></p>
+<!-- ВОПРОС 3 -->
+<section class="quiz">
+<p><b>Кто автор произведения?</b></p>
+<audio controls src="audio/koshpendiler.mp3"></audio>
+
 <div class="answers">
-  <div class="option" data-correct="true">ЖЫР</div>
-  <div class="option" data-correct="false">КҮЙ</div>
-  <div class="option" data-correct="false">ТОЙ</div>
+  <div class="option" data-correct="true">Ильяс Есенберлин</div>
+  <div class="option" data-correct="false">Мухтар Ауэзов</div>
+  <div class="option" data-correct="false">Сакен Сейфуллин</div>
 </div>
+
 <button class="retry">🔁 Попробовать снова</button>
 </section>
 
 <script>
-let score = Number(localStorage.getItem("score") || 0);
-let solved = JSON.parse(localStorage.getItem("solved") || "{}");
-
 document.querySelectorAll('.quiz').forEach(quiz=>{
-  let answered=false;
-  const qid=quiz.dataset.qid;
+let answered=false;
 
-  function shuffle(){
-    const a=quiz.querySelector('.answers');
-    [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
-  }
+function shuffle(){
+  const block=quiz.querySelector('.answers');
+  [...block.children].sort(()=>Math.random()-0.5).forEach(i=>block.appendChild(i));
+}
 
-  quiz.querySelectorAll('.option').forEach(opt=>{
-    opt.onclick=()=>{
-      if(answered)return;
-      answered=true;
-      const correct=opt.dataset.correct==="true";
-      opt.classList.add(correct?"correct":"wrong");
+quiz.querySelectorAll('.option').forEach(opt=>{
+  opt.onclick=()=>{
+    if(answered)return;
+    answered=true;
+    const correct=opt.dataset.correct==="true";
+    opt.classList.add(correct?"correct":"wrong");
 
-      quiz.querySelectorAll('.option').forEach(o=>{
-        if(o.dataset.correct==="true")o.classList.add("correct");
-        o.classList.add("disabled");
-      });
-
-      if(correct && !solved[qid]){
-        solved[qid]=true;
-        score++;
-        localStorage.setItem("score",score);
-        localStorage.setItem("solved",JSON.stringify(solved));
-      }
-    };
-  });
-
-  quiz.querySelector('.retry').onclick=()=>{
-    answered=false;
-    quiz.querySelectorAll('.option').forEach(o=>o.className="option");
-    shuffle();
+    quiz.querySelectorAll('.option').forEach(o=>{
+      if(o.dataset.correct==="true")o.classList.add("correct");
+      o.classList.add("disabled");
+    });
   };
+});
 
+quiz.querySelector('.retry').onclick=()=>{
+  answered=false;
+  quiz.querySelectorAll('.option').forEach(o=>{
+    o.className="option";
+  });
   shuffle();
+};
+
+shuffle();
 });
 </script>
 
 </body>
 </html>
+
+
 
 
