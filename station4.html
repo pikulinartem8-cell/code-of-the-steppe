@@ -19,6 +19,7 @@ body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;
 <body>
 
 <h2>🔐 Станция 4. Код степи</h2>
+<p id="progress">Прогресс станции: 0 / 3</p>
 
 <section class="quiz">
 <p><b>Какой символ означает «ТІЛ»?</b></p>
@@ -91,6 +92,10 @@ quiz.querySelectorAll('.option').forEach(opt=>{
     quiz.querySelectorAll('.option').forEach(o=>{
       if(o.dataset.correct==="true")o.classList.add("correct");
       o.classList.add("disabled");
+      if (opt.dataset.correct === "true") {
+  markCorrect();
+}
+
     });
   };
 });
@@ -104,9 +109,30 @@ quiz.querySelector('.retry').onclick=()=>{
 shuffle();
 });
 </script>
+<script>
+updateProgressUI();
+
+if (stationCompleted()) {
+  document.body.insertAdjacentHTML("beforeend",
+    `<a href="final.html" style="
+      display:block;
+      margin:20px auto;
+      padding:15px;
+      width:90%;
+      text-align:center;
+      background:#8b6b3e;
+      color:white;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:18px;
+    ">🏁 Перейти к финалу</a>`
+  );
+}
+</script>
 
 </body>
 </html>
+
 
 
 
