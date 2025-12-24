@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Код степи восстановлен</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family:Arial;
+  background:linear-gradient(#1f1a10,#3b2f1b);
+  color:#f4ecd8;
+  text-align:center;
+  padding:40px 15px;
+}
+.box{
+  background:#2e2415;
+  padding:30px;
+  border-radius:20px;
+  border:3px solid #d8c48a;
+}
+h1{font-size:28px;}
+.score{font-size:22px;margin-top:20px;}
+.reset{
+  margin-top:30px;
+  padding:15px;
+  background:#d8c48a;
+  color:black;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>🏁 Код степи восстановлен</h1>
+  <p>Вы прошли все испытания Великой степи.</p>
+  <div class="score" id="score"></div>
+
+  <button class="reset" onclick="resetAll()">🔁 Начать заново</button>
+</div>
+
+<script>
+const score = localStorage.getItem("score") || 0;
+document.getElementById("score").innerText = `⭐ Ваш результат: ${score} баллов`;
+
+function resetAll(){
+  localStorage.clear();
+  location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
