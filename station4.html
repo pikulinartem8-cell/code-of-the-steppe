@@ -2,32 +2,42 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Station 4</title>
+<title>Станция 4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{font-family:Arial;background:#f4ecd8;padding:15px;}
-.option{
-  padding:12px;
-  margin:8px 0;
-  border:2px solid #8b6b3e;
-  border-radius:8px;
-  background:#fff;
-}
+body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;}
+section{background:#fffaf0;padding:20px;border-radius:14px;border:3px solid #8b6b3e;}
+.option{padding:12px;margin:8px 0;border:2px solid #8b6b3e;border-radius:8px;background:#fff;cursor:pointer;}
+.option.correct{background:#c7e3b3;}
+.option.wrong{background:#f4bcbc;}
+.option.disabled{pointer-events:none;}
+.retry{margin-top:15px;padding:12px;width:100%;background:#d8c48a;border:none;border-radius:10px;}
 </style>
-<script>
-function check(ok){
-  alert(ok?"✅ Верно!":"❌ Неверно");
-}
-</script>
 </head>
 <body>
 
-<h2>🔐 Собери Код Степи</h2>
+<section>
+<h2>🔐 Станция 4. Код степи</h2>
+<p>Какой из символов означает «ТАРИХ»?</p>
 
-<div class="option" onclick="check(true)">ᛏIL — ТІЛ</div>
-<div class="option" onclick="check(true)">ᛗᚨᛞEᚾIET — МӘДЕНИЕТ</div>
-<div class="option" onclick="check(true)">ᛏᚨRIH — ТАРИХ</div>
-<div class="option" onclick="check(false)">ᛒᚨᚱYᛊ — БАРЫС</div>
+<div class="answers">
+  <div class="option" data-correct="true">ᛏᚨRIH</div>
+  <div class="option" data-correct="false">ᛒᚨᚱYᛊ</div>
+  <div class="option" data-correct="false">ᛗᚨᛞEᚾIET</div>
+</div>
+
+<button class="retry" onclick="resetQuiz()">🔁 Попробовать снова</button>
+</section>
+
+<script>
+let answered=false;
+function shuffle(){document.querySelectorAll('.answers').forEach(b=>{[...b.children].sort(()=>Math.random()-0.5).forEach(i=>b.appendChild(i));});}
+function setup(){document.querySelectorAll('.option').forEach(o=>{o.onclick=()=>{if(answered)return;answered=true;
+o.classList.add(o.dataset.correct==="true"?"correct":"wrong");
+document.querySelectorAll('.option').forEach(x=>{if(x.dataset.correct==="true")x.classList.add("correct");x.classList.add("disabled");});};});}
+function resetQuiz(){answered=false;document.querySelectorAll('.option').forEach(o=>o.className="option");shuffle();setup();}
+shuffle();setup();
+</script>
 
 </body>
 </html>
