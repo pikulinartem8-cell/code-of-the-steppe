@@ -4,40 +4,84 @@
 <meta charset="UTF-8">
 <title>Станция 4</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body{font-family:Arial;background:linear-gradient(#f4ecd8,#e2cfa1);padding:15px;}
-section{background:#fffaf0;padding:20px;border-radius:14px;border:3px solid #8b6b3e;}
+.quiz{background:#fffaf0;padding:20px;border-radius:14px;border:3px solid #8b6b3e;margin-bottom:20px;}
 .option{padding:12px;margin:8px 0;border:2px solid #8b6b3e;border-radius:8px;background:#fff;cursor:pointer;}
 .option.correct{background:#c7e3b3;}
 .option.wrong{background:#f4bcbc;}
 .option.disabled{pointer-events:none;}
-.retry{margin-top:15px;padding:12px;width:100%;background:#d8c48a;border:none;border-radius:10px;}
+.retry{margin-top:10px;padding:10px;width:100%;background:#d8c48a;border:none;border-radius:10px;}
 </style>
 </head>
+
 <body>
 
-<section>
 <h2>🔐 Станция 4. Код степи</h2>
-<p>Какой из символов означает «ТАРИХ»?</p>
 
+<section class="quiz">
+<p><b>Какой символ означает «ТІЛ»?</b></p>
 <div class="answers">
-  <div class="option" data-correct="true">ᛏᚨRIH</div>
+  <div class="option" data-correct="true">ᛏIL</div>
   <div class="option" data-correct="false">ᛒᚨᚱYᛊ</div>
   <div class="option" data-correct="false">ᛗᚨᛞEᚾIET</div>
 </div>
+<button class="retry">🔁 Попробовать снова</button>
+</section>
 
-<button class="retry" onclick="resetQuiz()">🔁 Попробовать снова</button>
+<section class="quiz">
+<p><b>Какой символ означает «ТАРИХ»?</b></p>
+<div class="answers">
+  <div class="option" data-correct="true">ᛏᚨRIH</div>
+  <div class="option" data-correct="false">ᛗᚨᛞEᚾIET</div>
+  <div class="option" data-correct="false">ᛒᚨᚱYᛊ</div>
+</div>
+<button class="retry">🔁 Попробовать снова</button>
+</section>
+
+<section class="quiz">
+<p><b>Какой символ означает «МӘДЕНИЕТ»?</b></p>
+<div class="answers">
+  <div class="option" data-correct="true">ᛗᚨᛞEᚾIET</div>
+  <div class="option" data-correct="false">ᛏIL</div>
+  <div class="option" data-correct="false">ᛏᚨRIH</div>
+</div>
+<button class="retry">🔁 Попробовать снова</button>
 </section>
 
 <script>
+document.querySelectorAll('.quiz').forEach(quiz=>{
 let answered=false;
-function shuffle(){document.querySelectorAll('.answers').forEach(b=>{[...b.children].sort(()=>Math.random()-0.5).forEach(i=>b.appendChild(i));});}
-function setup(){document.querySelectorAll('.option').forEach(o=>{o.onclick=()=>{if(answered)return;answered=true;
-o.classList.add(o.dataset.correct==="true"?"correct":"wrong");
-document.querySelectorAll('.option').forEach(x=>{if(x.dataset.correct==="true")x.classList.add("correct");x.classList.add("disabled");});};});}
-function resetQuiz(){answered=false;document.querySelectorAll('.option').forEach(o=>o.className="option");shuffle();setup();}
-shuffle();setup();
+
+function shuffle(){
+  const a=quiz.querySelector('.answers');
+  [...a.children].sort(()=>Math.random()-0.5).forEach(i=>a.appendChild(i));
+}
+
+quiz.querySelectorAll('.option').forEach(opt=>{
+  opt.onclick=()=>{
+    if(answered)return;
+    answered=true;
+    opt.classList.add(opt.dataset.correct==="true"?"correct":"wrong");
+    quiz.querySelectorAll('.option').forEach(o=>{
+      if(o.dataset.correct==="true")o.classList.add("correct");
+      o.classList.add("disabled");
+    });
+  };
+});
+
+quiz.querySelector('.retry').onclick=()=>{
+  answered=false;
+  quiz.querySelectorAll('.option').forEach(o=>o.className="option");
+  shuffle();
+};
+
+shuffle();
+});
 </script>
 
 </body>
 </html>
+
+
